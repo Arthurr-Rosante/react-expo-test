@@ -3,6 +3,7 @@ import { loginFormSchema, LoginFormSchema } from "../schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Link } from "expo-router";
 import React from "react";
 
 import "../app/global.css";
@@ -40,7 +41,7 @@ const Form = () => {
       <View>
         <Text>Email: </Text>
         <Controller control={control} name="email" render={({ field: { onChange, value } }) => (
-            <TextInput keyboardType="email-address" onChangeText={onChange} value={value}/>
+            <TextInput keyboardType="email-address" onChangeText={onChange} value={value || ""}/>
         )} />
         {errors.email && (
           <Text>{errors.email.message}</Text>
@@ -50,14 +51,16 @@ const Form = () => {
       <View>
         <Text>Senha: </Text>
         <Controller control={control} name="password" render={({ field: { onChange, value } }) => ( 
-            <TextInput secureTextEntry onChangeText={onChange} value={value}/> 
+            <TextInput secureTextEntry onChangeText={onChange} value={value || ""}/> 
         )} />
         {errors.password && (
           <Text>{errors.password.message}</Text>
         )}
       </View>
 
-      <Button title={isSubmitting ? "Enviando..." : "Login"} onPress={handleSubmit(onSubmit)} disabled={isSubmitting} />
+      <Button title={isSubmitting ? "Enviando..." : "Entrar"} onPress={handleSubmit(onSubmit)} disabled={isSubmitting} />
+
+      <Link href={"/../components/FormRegister"}>Registrar</Link>
     </SafeAreaView>
   );
 };
