@@ -1,13 +1,11 @@
-import { View } from "react-native";
-import Form from "../components/Form";
-import "./global.css";
+import { Link } from "expo-router";
+import { Button, Text, View } from "react-native";
 
-const Index = () => {
-  return (
-    <View>
-      <Form />
-    </View>
-  );
-};
-
-export default Index;
+export default function HomePage() {
+    return(
+        <View>
+            <Text>Homepage</Text>
+            <Link href="./auth/login"><Button title="Login"/></Link>
+        </View>
+    )
+}
