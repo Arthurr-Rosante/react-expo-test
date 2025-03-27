@@ -21,77 +21,45 @@ const Form = () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 250));
       console.log(data);
-      reset();
     } catch (error) {
       console.log(error);
+    } finally {
+      reset();
     }
   };
 
   return (
     <SafeAreaView>
       <View>
+        <Text>Usuário: </Text>
         <Controller control={control} name="username" render={({ field: { onChange, value } }) => (
-          <View>
-            <Text>Usuário: </Text>
             <TextInput onChangeText={onChange} value={value || ""}/>
-          </View>
         )} />
       </View>
 
       <View>
+        <Text>Email: </Text>
         <Controller control={control} name="email" render={({ field: { onChange, value } }) => (
-          <View>
-            <Text>Email: </Text>
             <TextInput keyboardType="email-address" onChangeText={onChange} value={value}/>
-          </View>
         )} />
+        {errors.email && (
+          <Text>{errors.email.message}</Text>
+        )}
       </View>
 
       <View>
-        <Controller control={control} name="password" render={({ field: { onChange, value } }) => (
-          <View>
-            <Text>Senha: </Text>
-            <TextInput secureTextEntry onChangeText={onChange} value={value}/>
-          </View>
+        <Text>Senha: </Text>
+        <Controller control={control} name="password" render={({ field: { onChange, value } }) => ( 
+            <TextInput secureTextEntry onChangeText={onChange} value={value}/> 
         )} />
+        {errors.password && (
+          <Text>{errors.password.message}</Text>
+        )}
       </View>
 
       <Button title={isSubmitting ? "Enviando..." : "Login"} onPress={handleSubmit(onSubmit)} disabled={isSubmitting} />
     </SafeAreaView>
   );
 };
-
-// --------- TESTE MAS NAO DEU NADA CERTO
-
-// interface ControllerTextInputProps {
-//   control: any;
-//   name: string;
-//   label: string;
-//   keyboardType: 'default' | 'email-addres';
-//   secureTextEntry: boolean;
-// }
-
-// function ControllerTextInput({control, name, label}: {control:any; name: string; label: string}) {
-//   <View>
-//     <Controller control={control} name={name} render={ ({ field: {onChange, value } }) => {
-//       <View>
-//       <Text>{ label }:</Text>
-//       <TextInput keyboardType={keyboardType} secureTextEntry={secureTextEntry} />
-//     </View>
-//     }} />
-//   </View>
-// }
-
-// function ControllerTextInput({ control, name, label, keyboardTypeProp='default', secureTextEntry=false}: ControllerTextInputProps) {
-//   return (
-//     <View>
-//       <Controller control={control} name={name} render={({ field: { onChange, value } }) => (
-//           <View>
-//             <Text>{label}:</Text>
-//             <TextInput onChangeText={onChange} value={value} keyboardType={keyboardType} secureTextEntry={secureTextEntry}
-//             />
-//     </View>
-//   )
-// }
 
 export default Form;
